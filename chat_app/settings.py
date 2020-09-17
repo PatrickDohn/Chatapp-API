@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chat_app.wsgi.application'
+
+ASGI_APPLICATION = "chat_app.routing.application"
 
 # Django Rest Framework
 #
