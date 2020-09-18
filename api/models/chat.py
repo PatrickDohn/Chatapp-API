@@ -19,5 +19,6 @@ class Chat(models.Model):
     """Returns dictionary version of Chat models"""
     return {
         'id': self.id,
+        'content': self.content
 
     }

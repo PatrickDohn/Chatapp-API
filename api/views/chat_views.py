@@ -8,7 +8,7 @@ from django.contrib.auth import get_user, authenticate, login, logout
 from django.middleware.csrf import get_token
 
 from ..models.chat import Chat
-from ..serializers import ChatSerializer, UserSerializer
+from ..serializers import ChatSerializer, UserSerializer, ChatPostSerializer
 
 # Create your views here.
 class Chats(generics.ListCreateAPIView):
@@ -19,7 +19,8 @@ class Chats(generics.ListCreateAPIView):
         # Get all the mangos:
         # mangos = Mango.objects.all()
         # Filter the mangos by owner, so you can only see your owned mangos
-        chats = Chat.objects.filter(owner=request.user.id)
+        # import pdb; pdb.set_trace()
+        chats = Chat.objects.all()
         # Run the data through the serializer
         data = ChatSerializer(chats, many=True).data
         return Response({ 'chats': data })
@@ -29,7 +30,7 @@ class Chats(generics.ListCreateAPIView):
         # Add user to request data object
         request.data['chat']['owner'] = request.user.id
         # Serialize/create mango
-        chat = ChatSerializer(data=request.data['chat'])
+        chat = ChatPostSerializer(data=request.data['chat'])
         # If the mango data is valid according to our serializer...
         if chat.is_valid():
             # Save the created mango & send a response

@@ -5,7 +5,7 @@ from .views.user_views import SignUp, SignIn, SignOut, ChangePassword
 
 urlpatterns = [
   	# Restful routing
-    path('chats/', Chats.as_view(), name='Chats'),
+    path('chats/', Chats.as_view(), name='chats'),
     path('chats/<int:pk>/', ChatDetail.as_view(), name='chat_detail'),
     path('sign-up/', SignUp.as_view(), name='sign-up'),
     path('sign-in/', SignIn.as_view(), name='sign-in'),

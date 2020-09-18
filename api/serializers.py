@@ -4,12 +4,6 @@ from .models.chat import Chat
 from .models.user import User
 
 
-
-class ChatSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chat
-        fields = ('id', 'content')
-
 class UserSerializer(serializers.ModelSerializer):
     # This model serializer will be used for User creation
     # The login serializer also inherits from this serializer
@@ -51,3 +45,14 @@ class ChangePasswordSerializer(serializers.Serializer):
     model = get_user_model()
     old = serializers.CharField(required=True)
     new = serializers.CharField(required=True)
+
+class ChatSerializer(serializers.ModelSerializer):
+    owner = UserSerializer(many=False, read_only=False)
+    class Meta:
+        model = Chat
+        fields = ('__all__')
+
+class ChatPostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        fields = ('__all__')
