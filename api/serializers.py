@@ -47,12 +47,9 @@ class ChangePasswordSerializer(serializers.Serializer):
     new = serializers.CharField(required=True)
 
 class ChatSerializer(serializers.ModelSerializer):
-    owner = UserSerializer(many=False, read_only=False)
     class Meta:
         model = Chat
-        fields = ('__all__')
+        fields = ('content', 'created_on', 'owner', 'id')
 
-class ChatPostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Chat
-        fields = ('__all__')
+class ChatReadSerializer(ChatSerializer):
+    owner = UserSerializer(many=False, read_only=False)

@@ -8,7 +8,7 @@ from django.contrib.auth import get_user, authenticate, login, logout
 from django.middleware.csrf import get_token
 
 from ..models.chat import Chat
-from ..serializers import ChatSerializer, UserSerializer, ChatPostSerializer
+from ..serializers import ChatSerializer, UserSerializer, ChatReadSerializer
 
 # Create your views here.
 class Chats(generics.ListCreateAPIView):
@@ -22,15 +22,19 @@ class Chats(generics.ListCreateAPIView):
         # import pdb; pdb.set_trace()
         chats = Chat.objects.all()
         # Run the data through the serializer
-        data = ChatSerializer(chats, many=True).data
+        data = ChatReadSerializer(chats, many=True).data
         return Response({ 'chats': data })
 
     def post(self, request):
         """Create request"""
         # Add user to request data object
+        print(f'request data is {request.data}')
+        print(f'user id is {request.user.id}')
         request.data['chat']['owner'] = request.user.id
         # Serialize/create mango
-        chat = ChatPostSerializer(data=request.data['chat'])
+        chat = ChatSerializer(data=request.data['chat'])
+        # chat.is_valid()
+        # print(f'this is chat {chat.errors}')
         # If the mango data is valid according to our serializer...
         if chat.is_valid():
             # Save the created mango & send a response
@@ -50,7 +54,7 @@ class ChatDetail(generics.RetrieveUpdateDestroyAPIView):
             raise PermissionDenied('Unauthorized, you do not own this chat')
 
         # Run the data through the serializer so it's formatted
-        data = ChatSerializer(chat).data
+        data = ChatReadSerializer(chat).data
         return Response({ 'chat': data })
 
     def delete(self, request, pk):
@@ -72,7 +76,7 @@ class ChatDetail(generics.RetrieveUpdateDestroyAPIView):
         # remove it.
         if request.data['chat'].get('owner', False):
             del request.data['chat']['owner']
-
+        print (request.user.id)
         # Locate Mango
         # get_object_or_404 returns a object representation of our Mango
         chat = get_object_or_404(Chat, pk=pk)

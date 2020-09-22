@@ -6,6 +6,7 @@ class Chat(models.Model):
   # define fields
   # https://docs.djangoproject.com/en/3.0/ref/models/fields/
   content = models.CharField(max_length=150)
+  created_on = models.DateField(auto_now_add=True)
   owner = models.ForeignKey(
       get_user_model(),
       on_delete=models.CASCADE
