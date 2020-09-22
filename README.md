@@ -12,9 +12,9 @@ sending  to a friend or group messages post for everyone to see.
 6. Run your server with `python3 manage.py runserver`
 
 ## Important Links
-- [Client Repo]()
-- [Deployed API]()
-- [Deployed Client]()
+- [Client Repo](https://github.com/PatrickDohn/Overthefence-client)
+- [Deployed API](https://git.heroku.com/overthefence.git)
+- [Deployed Client]( https://patrickdohn.github.io/Overthefence-client/)
 
 ## Planning Story
 
@@ -61,4 +61,4 @@ I would like to add the ability to add groups and contacts to only message certa
 
 
 ## ERD
-- [ERD]()
+- [ERD](https://imgur.com/nK3KiyF)
