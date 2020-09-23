@@ -45,7 +45,7 @@ As a signed in user, I would like to see all messages from every user.
 | PATCH  | `/change-pw/` | `users#changepw`  |
 | DELETE | `/sign-out/`        | `users#signout`   |
 
-### Survey
+### Chats
 
 | Verb   | URI Pattern            | Description |
 |--------|------------------------|-------------------|
